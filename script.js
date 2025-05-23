@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     void coder.offsetWidth;
     coder.classList.add('typing-coder');
   }
-if (coder) {
-  restartCoderTyping(); // Only run once on initial page load
-}
+  if (coder) {
+    restartCoderTyping();
+  }
 
   const tiltWrapper = document.querySelector('.tilt-img');
   const tiltTarget = tiltWrapper?.querySelector('.tilt-target');
@@ -44,21 +44,16 @@ if (coder) {
     });
   }
 
-const lightboxLinks = document.querySelectorAll('.lightbox-link');
-const lightboxOverlay = document.createElement('div');
-lightboxOverlay.classList.add('lightbox-overlay');
-document.body.appendChild(lightboxOverlay);
+  const lightboxLinks = document.querySelectorAll('.lightbox-link');
+  const lightboxOverlay = document.createElement('div');
+  lightboxOverlay.classList.add('lightbox-overlay');
+  document.body.appendChild(lightboxOverlay);
 
-lightboxOverlay.addEventListener('click', (e) => {
-  if (!e.target.closest('.lightbox-inner')) {
-    lightboxOverlay.classList.remove('active');
-    lightboxOverlay.innerHTML = '';
-  }
-});
+  let currentIndex = -1;
 
-lightboxLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
+  function openLightbox(index) {
+    const link = lightboxLinks[index];
+    if (!link) return;
 
     const highRes = link.href;
     const summaryText = link.dataset.summary || 'No summary available.';
@@ -68,26 +63,24 @@ lightboxLinks.forEach(link => {
     innerWrapper.style.display = 'flex';
     innerWrapper.style.boxShadow = '0 0 80px 40px rgba(255, 255, 255, 0.15)';
     innerWrapper.style.borderRadius = '8px';
-    innerWrapper.style.background = '#000'; // helps glow stand out on dark bg
+    innerWrapper.style.background = '#000';
     innerWrapper.style.maxWidth = '90vw';
-    innerWrapper.style.alignItems = 'stretch'; // Match image + summary height
+    innerWrapper.style.alignItems = 'stretch';
     innerWrapper.style.gap = '0';
+    innerWrapper.style.position = 'relative';
 
     const summaryPanel = document.createElement('div');
     summaryPanel.classList.add('lightbox-summary');
-    summaryPanel.style.width = '300px';
+    summaryPanel.style.width = '250px';
     summaryPanel.style.height = 'auto';
     summaryPanel.style.background = '#111';
     summaryPanel.style.color = '#fff';
-    summaryPanel.style.padding = '60px 30px 30px 30px'; // top, right, bottom, left
+    summaryPanel.style.padding = '60px 30px 30px 30px';
     summaryPanel.style.display = 'flex';
     summaryPanel.style.flexDirection = 'column';
     summaryPanel.style.justifyContent = 'flex-start';
     summaryPanel.style.borderTopLeftRadius = '8px';
     summaryPanel.style.borderBottomLeftRadius = '8px';
-    summaryPanel.style.borderTopRightRadius = '0';
-    summaryPanel.style.borderBottomRightRadius = '0';
-    summaryPanel.style.marginRight = '0';
     summaryPanel.style.fontSize = '14px';
     summaryPanel.style.lineHeight = '1.6';
     summaryPanel.innerHTML = `
@@ -102,19 +95,83 @@ lightboxLinks.forEach(link => {
     enlarged.src = highRes;
     enlarged.style.height = 'auto';
     enlarged.style.width = 'auto';
-    enlarged.style.maxHeight = '90vh'; // prevents image from being too tall
+    enlarged.style.maxHeight = '90vh';
     enlarged.style.objectFit = 'contain';
-    enlarged.style.borderTopLeftRadius = '0';
-    enlarged.style.borderBottomLeftRadius = '0';
-    enlarged.style.borderTopRightRadius = '8px';
-    enlarged.style.borderBottomRightRadius = '8px';
+    enlarged.style.borderRadius = '8px';
+    enlarged.style.boxShadow = '-12px 0 30px rgba(0, 0, 0, 0.5)';
+
+    // Navigation Buttons
+    const prevBtn = document.createElement('button');
+    prevBtn.innerHTML = '&#10094;';
+    prevBtn.style.position = 'absolute';
+    prevBtn.style.left = '-50px';
+    prevBtn.style.top = '50%';
+    prevBtn.style.transform = 'translateY(-50%)';
+    prevBtn.style.fontSize = '32px';
+    prevBtn.style.background = 'none';
+    prevBtn.style.border = 'none';
+    prevBtn.style.color = '#fff';
+    prevBtn.style.cursor = 'pointer';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.innerHTML = '&#10095;';
+    nextBtn.style.position = 'absolute';
+    nextBtn.style.right = '-50px';
+    nextBtn.style.top = '50%';
+    nextBtn.style.transform = 'translateY(-50%)';
+    nextBtn.style.fontSize = '32px';
+    nextBtn.style.background = 'none';
+    nextBtn.style.border = 'none';
+    nextBtn.style.color = '#fff';
+    nextBtn.style.cursor = 'pointer';
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox((currentIndex - 1 + lightboxLinks.length) % lightboxLinks.length);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox((currentIndex + 1) % lightboxLinks.length);
+    });
 
     innerWrapper.appendChild(summaryPanel);
     innerWrapper.appendChild(enlarged);
+    innerWrapper.appendChild(prevBtn);
+    innerWrapper.appendChild(nextBtn);
 
     lightboxOverlay.innerHTML = '';
     lightboxOverlay.appendChild(innerWrapper);
     lightboxOverlay.classList.add('active');
+    currentIndex = index;
+  }
+
+  lightboxLinks.forEach((link, index) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(index);
+    });
   });
-});
+
+  lightboxOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.lightbox-inner')) {
+      lightboxOverlay.classList.remove('active');
+      lightboxOverlay.innerHTML = '';
+      currentIndex = -1;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightboxOverlay.classList.contains('active')) {
+      if (e.key === 'ArrowLeft') {
+        openLightbox((currentIndex - 1 + lightboxLinks.length) % lightboxLinks.length);
+      } else if (e.key === 'ArrowRight') {
+        openLightbox((currentIndex + 1) % lightboxLinks.length);
+      } else if (e.key === 'Escape') {
+        lightboxOverlay.classList.remove('active');
+        lightboxOverlay.innerHTML = '';
+        currentIndex = -1;
+      }
+    }
+  });
 });

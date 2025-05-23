@@ -23,11 +23,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 60px;
+  padding: 20px 60px;
   width: 100%;
   background: transparent;
   z-index: 1000;
-  flex-wrap: nowrap; /* ← PREVENTS WRAPPING */
+  flex-wrap: nowrap;
+  position: sticky;
+  top: 0;
+  background-color: rgba(60, 58, 58, 0.8);
+  backdrop-filter: blur(6px);
 }
 .nav-left {
   display: flex;
@@ -45,11 +49,13 @@ body {
   transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
   white-space: nowrap;
 }
+/*
 .nav-link:hover {
-  background: #232423;
+  background: none;
   color: #ffffff;
   box-shadow: 0 4px 6px rgba(248, 247, 247, 0.3);
 }
+*/
 .nav-code {
   flex-shrink: 0;
   display: flex;
@@ -57,6 +63,18 @@ body {
   white-space: nowrap;
   overflow: hidden;
   margin-right: 140px; 
+}
+.nav-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* ensures white icon on dark background */
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.1);
 }
 .typing-text {
   font-family: 'Fira Code', monospace;
@@ -181,7 +199,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  margin-top: -60px;
+  margin-top: -70px;
 }
 .split-logo-wrapper {
   position: relative;
@@ -307,11 +325,11 @@ body {
 .expertise-label {
   position: relative;
   z-index: 1;
-  width: 300px;
+  width: 330px;
   height: 330px;
   padding: 40px 30px;
   background:
-    linear-gradient(#000, #000) padding-box,
+    linear-gradient(#1B1B1B, #1B1B1B) padding-box,
     linear-gradient(to bottom right, #f25f5c, #44c1f1) border-box;
   border: 4px solid transparent;
   background-clip: padding-box, border-box;
@@ -332,38 +350,35 @@ body {
 .expertise-cards {
   display: flex;
   scroll-snap-type: x mandatory;
-  padding-left: 100px;
+  padding-left: 0px;
   padding-bottom: 30px;
   overflow-x: auto;
   overflow-y: visible;
   position: relative;
-  gap: 30px;
+  gap: 0px;
   z-index: 1;
 }
-
 /* For Chrome, Safari, Edge (WebKit browsers) */
 .expertise-cards::-webkit-scrollbar,
 .experience-cards::-webkit-scrollbar {
-  height: 10px; /* controls thickness of the scrollbar */
+  height: 10px;
 }
-
 .expertise-cards::-webkit-scrollbar-track,
 .experience-cards::-webkit-scrollbar-track {
-  background: #111; /* dark background behind the bar */
+  background: #111; 
 }
-
 .expertise-cards::-webkit-scrollbar-thumb,
 .experience-cards::-webkit-scrollbar-thumb {
-  background-color: #949494;  /* the scrollbar itself */
+  background-color: #949494;
   border-radius: 6px;
 }
-
-/* Optional: change thumb color on hover */
 .expertise-cards::-webkit-scrollbar-thumb:hover,
 .experience-cards::-webkit-scrollbar-thumb:hover {
   background-color: #474747;
 }
-
+.expertise-cards .expertise-card:first-child {
+  margin-left: 0;
+}
 .expertise-card {
   flex: 0 0 330px;
   height: 330px;
@@ -375,7 +390,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   scroll-snap-align: start;
-  margin-left: -100px;
+  margin-left: -120px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, margin-right 0.3s ease;
   z-index: 1;
   position: relative;
@@ -405,7 +420,6 @@ body {
 .expertise-card h2 {
   margin-bottom: 6px; /* reduce spacing below the title */
 }
-
 .expertise-card h4 {
   margin-top: 0;       /* remove default space above tool list */
   margin-bottom: 12px; /* optional: add bottom spacing if needed */
@@ -445,7 +459,8 @@ body {
 .expertise-card:hover .brand-angular { color: #DD0031; }
 .expertise-card:hover .brand-databases { color: #0064a5; }
 .expertise-card:hover .brand-cloud { color: #2b5865; }
-
+.expertise-card:hover .brand-asana { color: #FF584A; }
+.expertise-card:hover .brand-clickup { color: #5297FD; }
 /* =========================================================
    EXPERIENCE SECTION
 ========================================================= */
@@ -491,7 +506,7 @@ body {
   height: 300px;
   padding: 40px 30px;
   background:
-    linear-gradient(#000, #000) padding-box,
+    linear-gradient(#1B1B1B, #1A1A20) padding-box,
     linear-gradient(to bottom right, #f25f5c, #44c1f1) border-box;
   border: 4px solid transparent;
   background-clip: padding-box, border-box;
@@ -524,7 +539,7 @@ body {
   flex-direction: column;
   flex: 0 0 280px;
   height: 345px;
-  background: #2a2a2a;
+  background: #1B1B1B;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 1);
@@ -539,6 +554,9 @@ body {
   margin-right: 20px;
   z-index: 10;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9);
+}
+.experience-card.offset-image .image-wrapper img {
+  object-position: 10% center;
 }
 .image-wrapper {
   height: 285px;
