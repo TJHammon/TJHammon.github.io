@@ -16,6 +16,25 @@ body {
   color: #ffffff;
   overflow-x: hidden;
 }
+
+::placeholder {
+  color: #aaa;
+  opacity: 1;
+  font-style: italic;
+  font-family: 'Open Sans', sans-serif; /* match site font */
+  font-size: 14px; /* same size as your inputs */
+}
+
+/* Make these headers match the big label size (~42px) */
+.education-panel h2,
+.experience-right h2,
+.connect-left h2,
+.connect-right h2 {
+  font-size: 42px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
 /* =========================================================
    NAVIGATION BAR
 ========================================================= */
@@ -671,7 +690,7 @@ body {
 }
 .experience-inner {
   max-width: 1400px;
-  margin-left: 500px;
+  margin: 0 auto;
   padding: 0 20px;
 }
 .experience-text h2 {
@@ -708,6 +727,442 @@ body {
   margin-right: auto;
   border-radius: 10px;
 }
+
+/* =========================================================
+   EDUCATION SECTION
+========================================================= */
+.education-section {
+  width: 100%;
+  margin-top: 100px;
+  padding: 0 0 150px;
+  text-align: left;
+  background: transparent;
+}
+.education-outer {
+  max-width: 1550px;
+  margin: 0 auto;
+  overflow-x: auto;
+  position: relative;
+}
+.education-scroll-container {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  scroll-snap-type: x mandatory;
+  padding: 0 20px 60px 20px;
+}
+.education-scroll-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 380px;
+  right: 20px;
+  width: 4px;
+  background: linear-gradient(to bottom, #FF533B, #F1275C 100%);
+  pointer-events: none;
+  z-index: 3;
+  box-shadow: -4px 0 6px rgb(0, 0, 0);
+}
+.education-label {
+  position: relative;
+  z-index: 1;
+  width: 360px;
+  height: 330px;
+  padding: 35px 20px 40px 20px;
+  background:
+    linear-gradient(#1B1B1B, #1A1A20) padding-box,
+    linear-gradient(to bottom right, #f25f5c, #44c1f1) border-box;
+  border: 4px solid transparent;
+  background-clip: padding-box, border-box;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  scroll-snap-align: start;
+  left: 0;
+  margin-right: 40px;
+}
+
+.education-label * {
+  margin-left: 10px;
+}
+
+.education-cards {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  padding-left: 0px;
+  padding-bottom: 30px;
+  overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+  gap: 0px;
+  z-index: 1;
+}
+
+.education-card:hover .experience-link {
+  color: #000000; /* turn link text black */
+  text-decoration: none; /* optional: keeps it clean */
+}
+/* For Chrome, Safari, Edge (WebKit browsers) */
+.education-cards::-webkit-scrollbar,
+.education-cards::-webkit-scrollbar {
+  height: 10px;
+}
+.education-cards::-webkit-scrollbar-track,
+.education-cards::-webkit-scrollbar-track {
+  background: #111; 
+}
+.education-cards::-webkit-scrollbar-thumb,
+.education-cards::-webkit-scrollbar-thumb {
+  background-color: #949494;
+  border-radius: 6px;
+}
+.education-cards::-webkit-scrollbar-thumb:hover,
+.education-cards::-webkit-scrollbar-thumb:hover {
+  background-color: #474747;
+}
+.education-cards .education-card:first-child {
+  margin-left: 0;
+}
+.education-card {
+  flex: 0 0 330px;
+  height: 330px;
+  background: #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 1);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  scroll-snap-align: start;
+  margin-left: -120px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, margin-right 0.3s ease;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+}
+.education-card:hover {
+  transform: scale(1.03) translateY(-12px);
+  margin-right: 20px;
+  z-index: 10;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9);
+}
+.education-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: #d7d8d9;
+  z-index: 0;
+  transition: height 0.2s ease-in-out;
+  border-radius: 12px;
+}
+.education-card:hover::before {
+  height: 100%;
+}
+.education-card h2 {
+  margin-bottom: 6px; /* reduce spacing below the title */
+}
+.education-card h4 {
+  margin-top: 0;       /* remove default space above tool list */
+  margin-bottom: 12px; /* optional: add bottom spacing if needed */
+}
+.education-card h2,
+.education-card h4,
+.education-card p {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+.education-card:hover h2,
+.education-card:hover h4,
+.education-card:hover p {
+  color: #212121;
+}
+/* Brand hover colors */
+.brand-adobe, .brand-figma, .brand-css,
+.brand-hubspot, .brand-storybrand, .brand-crm,
+.brand-html, .brand-js, .brand-csharp,
+.brand-angular, .brand-databases, .brand-cloud {
+  color: #ffffff;
+  font-weight: 700;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+.education-card:hover .brand-adobe { color: #FF0000; }
+.education-card:hover .brand-figma { color: #A259FF; }
+.education-card:hover .brand-css { color: #000000; }
+.education-card:hover .brand-hubspot { color: #db8708; }
+.education-card:hover .brand-storybrand { color: #1c5d77; }
+.education-card:hover .brand-crm { color: #000000; }
+.education-card:hover .brand-html { color: #E44D26; }
+.education-card:hover .brand-js { color: #000000; }
+.education-card:hover .brand-csharp { color: #68217A; }
+.education-card:hover .brand-angular { color: #DD0031; }
+.education-card:hover .brand-databases { color: #0064a5; }
+.education-card:hover .brand-cloud { color: #2b5865; }
+.education-card:hover .brand-asana { color: #FF584A; }
+.education-card:hover .brand-clickup { color: #5297FD; }
+
+/* Make the Education/Professional row align just like the My Experience row */
+.experience-text .experience-inner {
+  max-width: 1550px;     /* matches .experience-outer */
+  margin: 0 auto;        /* centers the row */
+  padding: 0 20px 40px;  /* matches scroller padding so left edge lines up */
+}
+
+/* =========================================================
+   TESTIMONIAL SECTION
+========================================================= */
+.testimonials-section {
+  width: 100%;
+  margin: 0;
+  padding: 60px 0;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0;
+
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('images/ExperienceText_image2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
+  color: #ffffff;
+  box-shadow:
+    inset 0 30px 30px -20px rgba(0, 0, 0, 0.4),
+    inset 0 -30px 30px -20px rgba(0, 0, 0, 0.4);
+}
+
+.testimonials-inner {
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;           
+}
+
+.testimonials-section h2 {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.testimonial-slider {
+  position: relative;
+  max-width: 1400px;
+  margin: 10px auto 0;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;                
+  scroll-snap-type: x mandatory;
+  padding: 20px 48px;              
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.testimonial-track { scrollbar-width: none; }
+.testimonial-track::-webkit-scrollbar { display: none; }
+
+.testimonial-card {
+  flex: 0 0 min(1308px, calc(100% - 96px));
+  max-width: min(1308px, calc(100% - 96px));
+  min-height: 300px;
+  background: #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,1);
+  padding: 28px 32px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  scroll-snap-align: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.03) translateY(-6px);
+  box-shadow: 0 16px 50px rgba(0,0,0,.9);
+}
+
+.testimonial-card .quote {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 21px;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+}
+.testimonial-card .author {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  opacity: .9;
+  color: #5dd39e
+}
+
+/* Arrows */
+.ts-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: #2a2a2a;
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5);
+  transition: transform .15s ease, background .2s ease;
+}
+.ts-prev { left: -48px; }
+.ts-next { right: -48px; }
+.ts-arrow:hover { transform: translateY(-50%) scale(1.05); background: #1f1f1f; }
+.ts-arrow:disabled { opacity: .4; cursor: default; }
+
+/* Dots */
+.ts-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.ts-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 0;       /* fixes oval-looking dots */
+  background: #8a8a8a;
+  opacity: .6;
+  cursor: pointer;
+}
+
+.ts-dots button[aria-current="true"] {
+  opacity: 1;
+  background: #5dd39e;  /* your accent */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .testimonial-card { flex-basis: 92vw; }
+}
+
+/* =========================================================
+   CONNECT SECTION
+========================================================= */
+.connect-section {
+  background: transparent;
+  /* A reasonable band height so the block can center nicely */
+  min-height: 400px;        /* adjust to taste; not full viewport */
+  padding: 60px 0;          /* symmetric padding */
+  display: flex;
+  justify-content: center;  /* center the inner wrapper horizontally */
+  align-items: center;      /* center the inner wrapper vertically */
+  position: relative;
+}
+
+.connect-inner {
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* The single centered card */
+.connect-left {
+  /* no fixed flex-basis anymore; this is a standalone card */
+  background: none;
+  padding: 30px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical center headings + form */
+  align-items: center;      /* horizontal center */
+  text-align: center;       /* center h2 + h3 text */
+  width: 520px;             /* match your old visual width */
+  margin: 0 auto;           /* keep it centered within inner container */
+}
+
+/* Headings look centered and tight */
+.connect-left h2 {
+  margin: 0 0 12px 0;
+}
+.contact-form h3 {
+  margin: 0 0 20px 0;
+  color: #5dd39e;
+  font-size: 22px;
+}
+
+/* Form block centered under headings */
+.contact-form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* center inputs + button */
+}
+
+/* Existing input/textarea/button styles (keep your originals) */
+.contact-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: #fff;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #2c2c2c;
+  color: #fff;
+  box-sizing: border-box;
+  resize: none;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #5dd39e;
+}
+.contact-form button {
+  background: #5dd39e;
+  color: #000;
+  font-weight: 700;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.contact-form button:hover {
+  background: #44c1f1;
+}
+
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -721,4 +1176,16 @@ body {
 }
 .site-footer p {
   margin: 0;
+}
+
+/* =========================================================
+   IMAGE SPIN
+========================================================= */
+@keyframes spinCrazy {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(2880deg); } /* 8 full spins */
+}
+
+.tilt-target.spin {
+  animation: spinCrazy 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
