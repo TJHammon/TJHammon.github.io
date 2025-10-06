@@ -254,7 +254,7 @@ body {
 .right-half { clip-path: inset(0 0 0 50%); z-index: 1; }
 .designer-title,
 .coder-title {
-  font-size: 54pt;
+  font-size: clamp(2rem, 6vw, 3.25rem);
   font-weight: 800;
   margin-bottom: 5px;
   line-height: 1.1;
@@ -1102,7 +1102,8 @@ body {
   justify-content: center;  /* vertical center headings + form */
   align-items: center;      /* horizontal center */
   text-align: center;       /* center h2 + h3 text */
-  width: 520px;             /* match your old visual width */
+  max-width: 520px;
+  width: 100%;             /* match your old visual width */
   margin: 0 auto;           /* keep it centered within inner container */
 }
 
@@ -1188,4 +1189,85 @@ body {
 
 .tilt-target.spin {
   animation: spinCrazy 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+========================================================= */
+
+/* Tablet and down */
+@media (max-width: 1024px) {
+  body {
+    background-attachment: scroll; /* smoother on mobile/tablet */
+  }
+  .nav {
+    padding: 8px 16px;
+  }
+  .nav-code {
+    margin-right: 24px;
+    white-space: nowrap;
+  }
+  .typing-text {
+    width: 26ch;
+  }
+  .feature-section {
+    gap: 40px;
+    height: auto;
+    width: auto;
+    margin-left: 0;
+    margin-top: 0;
+    flex-wrap: wrap;
+  }
+  .feature-left,
+  .feature-center,
+  .feature-right {
+    flex: 1 1 320px;
+    max-width: 640px;
+    transform: none;
+    margin-top: 0;
+  }
+  .split-logo-wrapper {
+    width: clamp(200px, 40vw, 300px);
+    height: clamp(200px, 40vw, 300px);
+  }
+
+  /* Card rails */
+  .expertise-card,
+  .education-card {
+    flex: 0 0 auto;
+    width: clamp(240px, 70vw, 330px);
+    height: auto;
+  }
+  .experience-card {
+    flex: 0 0 auto;
+    width: clamp(220px, 70vw, 280px);
+    height: auto;
+  }
+  .expertise-cards,
+  .experience-cards,
+  .education-cards {
+    gap: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  /* reduce overlap/negative margins if present */
+  .expertise-card,
+  .experience-card { margin-right: 16px; }
+  .expertise-card:hover,
+  .experience-card:hover { margin-right: 16px; transform: scale(1.02) translateY(-6px); }
+
+  /* Testimonials arrows inside */
+  .ts-prev { left: 8px; }
+  .ts-next { right: 8px; }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .nav-links {
+    gap: 8px;
+  }
+  .typing-text { width: 22ch; }
+  .feature-left p,
+  .feature-right p { font-size: 0.95rem; }
+  .site-footer { padding: 24px 16px; }
 }

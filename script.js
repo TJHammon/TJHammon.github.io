@@ -118,7 +118,7 @@ if (tiltTarget) {
     const prevBtn = document.createElement('button');
     prevBtn.innerHTML = '&#10094;';
     prevBtn.style.position = 'absolute';
-    prevBtn.style.left = '-50px';
+    prevBtn.style.left = (window.innerWidth < 640 ? '10px' : '-50px');
     prevBtn.style.top = '50%';
     prevBtn.style.transform = 'translateY(-50%)';
     prevBtn.style.fontSize = '32px';
@@ -130,7 +130,7 @@ if (tiltTarget) {
     const nextBtn = document.createElement('button');
     nextBtn.innerHTML = '&#10095;';
     nextBtn.style.position = 'absolute';
-    nextBtn.style.right = '-50px';
+    nextBtn.style.right = (window.innerWidth < 640 ? '10px' : '-50px');
     nextBtn.style.top = '50%';
     nextBtn.style.transform = 'translateY(-50%)';
     nextBtn.style.fontSize = '32px';
