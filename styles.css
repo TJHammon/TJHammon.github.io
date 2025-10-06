@@ -1271,3 +1271,110 @@ body {
   .feature-right p { font-size: 0.95rem; }
   .site-footer { padding: 24px 16px; }
 }
+
+/* ===== Mobile + iPad HOTFIX OVERRIDES ===== */
+
+/* 1) Stop horizontal scrolling and oversized images */
+html, body { overflow-x: hidden; }
+img, video { max-width: 100%; height: auto; }
+
+/* 2) Disable parallax/fixed backgrounds on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .texture-bg { background-attachment: scroll !important; }
+}
+
+/* 3) Global type scaling for small screens */
+:root {
+  --h1-mobile: clamp(28px, 8vw, 40px);
+  --h2-mobile: clamp(22px, 6.5vw, 32px);
+  --h3-mobile: clamp(18px, 5.5vw, 26px);
+  --body-mobile: clamp(14px, 4.2vw, 18px);
+}
+@media (max-width: 768px) {
+  h1 { font-size: var(--h1-mobile) !important; line-height: 1.15; }
+  h2 { font-size: var(--h2-mobile) !important; line-height: 1.2; }
+  h3 { font-size: var(--h3-mobile) !important; line-height: 1.25; }
+  body, p, li { font-size: var(--body-mobile); }
+}
+
+/* 4) Navigation tightening */
+@media (max-width: 1024px) {
+  .nav { padding: 8px 12px !important; gap: 8px !important; }
+  .nav a { padding: 8px 10px !important; }
+  .nav-code { margin-right: 0 !important; max-width: 60vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@media (max-width: 600px) {
+  .nav { flex-wrap: wrap; justify-content: center; }
+}
+
+/* 5) Feature/hero band fixes */
+@media (max-width: 1024px) {
+  .feature-section {
+    margin-left: 0 !important;   /* kill any -50vw hacks */
+    padding: 24px 16px !important;
+  }
+  .feature-left, .feature-center, .feature-right {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .feature-center img, .feature-left img, .feature-right img {
+    max-width: 80% !important;
+  }
+}
+
+/* 6) Card scrollers — make cards fluid and reduce overlap */
+@media (max-width: 1024px) {
+  .expertise-track, .experience-track, .education-track {
+    gap: 14px !important;
+    padding: 0 16px !important;
+  }
+  .expertise-card, .experience-card, .education-card {
+    width: min(84vw, 320px) !important;
+    height: auto !important;
+    margin-left: 0 !important;      /* remove negative overlap */
+    transform: none !important;      /* in case of stacked effects */
+  }
+}
+
+/* 7) Testimonials — keep arrows inside the viewport on phones */
+@media (max-width: 768px) {
+  .testimonials {
+    padding: 0 16px !important;
+  }
+  .testimonial-arrow-prev,
+  .testimonial-arrow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+    line-height: 36px; text-align: center;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(2px);
+    z-index: 3;
+  }
+  .testimonial-arrow-prev { left: 6px !important; }
+  .testimonial-arrow-next { right: 6px !important; }
+}
+
+/* 8) Connect form — allow shrinking */
+@media (max-width: 768px) {
+  .connect {
+    padding: 24px 16px !important;
+  }
+  .connect-left {
+    max-width: 520px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+  .connect-right { display: none; } /* optional: hide decorative column on phones */
+}
+
+/* 9) Utility: collapse oversized paddings/margins on small screens */
+@media (max-width: 768px) {
+  section, .section, .band { padding: 32px 0 !important; }
+  .container { padding: 0 16px !important; margin: 0 auto !important; max-width: 100% !important; }
+}
